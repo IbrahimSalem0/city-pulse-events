@@ -1,27 +1,49 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import {
   View,
   Text,
-  ScrollView,
+  FlatList,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useApp } from '../../store/AppContext';
-import { EventCard, SafeArea, Loading } from '../../components';
+import { useEvents } from '../../hooks/useEvents';
+import { EventCard, StatusBarSpacer } from '../../components';
 import { COLORS, SPACING, FONT_SIZES } from '../../constants';
 
 export default function FavoritesScreen() {
   const navigation = useNavigation();
   const { favoriteEvents, language } = useApp();
 
-  const handleBackPress = () => {
+  // Fetch all events to get details for favorites
+  const { data: allEvents } = useEvents({});
+
+  // Filter events to show only favorites
+  const favoriteEventDetails = useMemo(() => {
+    if (!allEvents?.data || !favoriteEvents.length) return [];
+    
+    return allEvents.data.filter(event => 
+      favoriteEvents.includes(event.id)
+    );
+  }, [allEvents, favoriteEvents]);
+
+  const handleBackPress = useCallback(() => {
     navigation.goBack();
-  };
+  }, [navigation]);
+
+  const handleEventPress = useCallback((eventId: string) => {
+    navigation.navigate('EventDetails' as never, { eventId } as never);
+  }, [navigation]);
+
+  const handleFavoriteToggle = useCallback((eventId: string) => {
+    // This will be handled by the EventCard component
+  }, []);
 
   if (favoriteEvents.length === 0) {
     return (
-      <SafeArea>
+      <View style={styles.container}>
+        <StatusBarSpacer backgroundColor={COLORS.background} />
         <View style={styles.header}>
           <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
             <Text style={styles.backButtonText}>⬅️</Text>
@@ -42,12 +64,22 @@ export default function FavoritesScreen() {
             }
           </Text>
         </View>
-      </SafeArea>
+      </View>
     );
   }
 
+  const renderEventItem = useCallback(({ item }: { item: any }) => (
+    <EventCard
+      event={item}
+      onPress={() => handleEventPress(item.id)}
+      onFavoritePress={() => handleFavoriteToggle(item.id)}
+      isFavorite={true} // Always true in favorites screen
+    />
+  ), [handleEventPress, handleFavoriteToggle]);
+
   return (
-    <SafeArea>
+    <View style={styles.container}>
+      <StatusBarSpacer backgroundColor={COLORS.background} />
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
           <Text style={styles.backButtonText}>⬅️</Text>
@@ -56,31 +88,29 @@ export default function FavoritesScreen() {
           {language === 'en' ? 'Favorites' : 'المفضلة'}
         </Text>
       </View>
-      <ScrollView style={styles.container}>
-        <View style={styles.headerInfo}>
-          <Text style={styles.title}>
-            {language === 'en' ? 'Favorite Events' : 'الأحداث المفضلة'}
-          </Text>
-          <Text style={styles.subtitle}>
-            {favoriteEvents.length} {language === 'en' ? 'events' : 'أحداث'}
-          </Text>
-        </View>
-        
-        <View style={styles.eventsList}>
-          {/* Note: In a real app, you'd fetch the full event details for each favorite ID */}
-          {favoriteEvents.map((eventId, index) => (
-            <View key={eventId} style={styles.eventPlaceholder}>
-              <Text style={styles.eventPlaceholderText}>
-                {language === 'en' ? 'Event ID:' : 'معرف الحدث:'} {eventId}
-              </Text>
-              <Text style={styles.eventPlaceholderText}>
-                {language === 'en' ? 'Event details would be loaded here' : 'سيتم تحميل تفاصيل الحدث هنا'}
-              </Text>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-    </SafeArea>
+      
+      <FlatList
+        data={favoriteEventDetails}
+        renderItem={renderEventItem}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.listContent}
+        ListHeaderComponent={
+          <View style={styles.headerInfo}>
+            <Text style={styles.title}>
+              {language === 'en' ? 'Favorite Events' : 'الأحداث المفضلة'}
+            </Text>
+            <Text style={styles.subtitle}>
+              {favoriteEventDetails.length} {language === 'en' ? 'events' : 'أحداث'}
+            </Text>
+          </View>
+        }
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={10}
+        windowSize={10}
+        initialNumToRender={5}
+      />
+    </View>
   );
 }
 
@@ -123,8 +153,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.md,
     color: COLORS.textSecondary,
   },
-  eventsList: {
-    padding: SPACING.lg,
+  listContent: {
+    paddingBottom: SPACING.xl, // Add some padding at the bottom for the last item
   },
   emptyContainer: {
     flex: 1,
@@ -148,18 +178,5 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     textAlign: 'center',
     lineHeight: 24,
-  },
-  eventPlaceholder: {
-    backgroundColor: COLORS.surface,
-    padding: SPACING.md,
-    borderRadius: 8,
-    marginBottom: SPACING.md,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  eventPlaceholderText: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textSecondary,
-    marginBottom: SPACING.xs,
   },
 });

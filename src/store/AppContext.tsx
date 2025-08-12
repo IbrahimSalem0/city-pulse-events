@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { User, Event } from '../types';
 import { StorageService } from '../services/storage';
+import { User, Event } from '../types';
+import { changeLanguage, getCurrentLanguage } from '../locales';
 
 interface AppState {
   user: User | null;
@@ -111,8 +112,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const updateLanguage = (language: 'en' | 'ar') => {
-    dispatch({ type: 'SET_LANGUAGE', payload: language });
+  const updateLanguage = async (language: 'en' | 'ar') => {
+    try {
+      // Use the new i18n system
+      await changeLanguage(language);
+      dispatch({ type: 'SET_LANGUAGE', payload: language });
+    } catch (error) {
+      console.error('Error changing language:', error);
+    }
   };
 
   const updateUser = (user: User | null) => {

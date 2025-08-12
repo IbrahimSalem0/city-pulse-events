@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useEvents, useCategories } from '../../hooks/useEvents';
 import { useApp } from '../../store/AppContext';
@@ -21,6 +22,7 @@ type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EventDe
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useState<SearchParams>({});
   const [keyword, setKeyword] = useState('');
   const [city, setCity] = useState(DEFAULT_CITY);
@@ -34,7 +36,7 @@ export default function HomeScreen() {
   // Memoized search function to prevent unnecessary re-renders
   const handleSearch = useCallback(() => {
     if (!keyword && !city) {
-      Alert.alert('Error', 'Please enter a keyword or city to search');
+      Alert.alert(t('common.error'), t('errors.invalidSearch'));
       return;
     }
 
@@ -43,7 +45,7 @@ export default function HomeScreen() {
       city: city.trim() || undefined,
       category: selectedCategory || undefined,
     });
-  }, [keyword, city, selectedCategory]);
+  }, [keyword, city, selectedCategory, t]);
 
   // Memoized language toggle
   const toggleLanguage = useCallback(() => {
@@ -116,12 +118,12 @@ export default function HomeScreen() {
     <View style={styles.listHeader}>
       <View style={styles.header}>
         <Text style={styles.title}>
-          {language === 'en' ? 'City Pulse Events' : 'أحداث نبض المدينة'}
+          {t('events.title')}
         </Text>
         <View style={styles.languageToggle}>
           <TouchableOpacity onPress={toggleLanguage}>
             <Text style={styles.languageText}>
-              {language === 'en' ? 'العربية' : 'English'}
+              {language === 'en' ? t('profile.arabic') : t('profile.english')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -129,15 +131,15 @@ export default function HomeScreen() {
 
       <View style={styles.searchSection}>
         <Input
-          label={language === 'en' ? 'Search Events' : 'البحث عن الأحداث'}
-          placeholder={language === 'en' ? 'Enter event name...' : 'أدخل اسم الحدث...'}
+          label={t('events.searchEvents')}
+          placeholder={t('events.searchPlaceholder')}
           value={keyword}
           onChangeText={setKeyword}
         />
 
         <Input
-          label={language === 'en' ? 'City' : 'المدينة'}
-          placeholder={language === 'en' ? 'Enter city name...' : 'أدخل اسم المدينة...'}
+          label={t('events.city')}
+          placeholder={t('events.cityPlaceholder')}
           value={city}
           onChangeText={setCity}
         />
@@ -145,7 +147,7 @@ export default function HomeScreen() {
         {categories && categories.length > 0 && (
           <View style={styles.categorySection}>
             <Text style={styles.categoryLabel}>
-              {language === 'en' ? 'Category' : 'الفئة'}
+              {t('events.category')}
             </Text>
             <FlatList
               data={categories}
@@ -160,7 +162,7 @@ export default function HomeScreen() {
         )}
 
         <Button
-          title={language === 'en' ? 'Search Events' : 'البحث عن الأحداث'}
+          title={t('events.searchButton')}
           onPress={handleSearch}
           variant="primary"
           size="large"
@@ -170,7 +172,7 @@ export default function HomeScreen() {
       {events.length > 0 && (
         <View style={styles.resultsHeader}>
           <Text style={styles.resultsTitle}>
-            {language === 'en' ? 'Search Results' : 'نتائج البحث'}
+            {t('events.searchResults')}
             <Text style={styles.resultsCount}> ({eventsData?.total || 0})</Text>
           </Text>
         </View>
@@ -178,7 +180,7 @@ export default function HomeScreen() {
     </View>
   ), [
     keyword, city, categories, selectedCategory, events.length, eventsData,
-    renderCategoryItem, handleSearch, language, toggleLanguage
+    renderCategoryItem, handleSearch, language, toggleLanguage, t
   ]);
 
   // Memoized empty state
@@ -190,13 +192,7 @@ export default function HomeScreen() {
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateIcon}>🔍</Text>
           <Text style={styles.emptyStateTitle}>
-            {language === 'en' ? 'No Events Found' : 'لم يتم العثور على أحداث'}
-          </Text>
-          <Text style={styles.emptyStateSubtitle}>
-            {language === 'en' 
-              ? 'Try adjusting your search terms or location' 
-              : 'جرب تعديل مصطلحات البحث أو الموقع'
-            }
+            {t('events.noEventsFound')}
           </Text>
         </View>
       );
@@ -206,17 +202,14 @@ export default function HomeScreen() {
       <View style={styles.welcomeState}>
         <Text style={styles.welcomeStateIcon}>🎉</Text>
         <Text style={styles.welcomeStateTitle}>
-          {language === 'en' ? 'Welcome to City Pulse!' : 'مرحباً بك في نبض المدينة!'}
+          {t('events.welcomeTitle')}
         </Text>
         <Text style={styles.welcomeStateSubtitle}>
-          {language === 'en' 
-            ? 'Search for events in your area to get started' 
-            : 'ابحث عن الأحداث في منطقتك للبدء'
-          }
+          {t('events.welcomeSubtitle')}
         </Text>
       </View>
     );
-  }, [isLoading, searchParams, language]);
+  }, [isLoading, searchParams, t]);
 
   if (error) {
     return (
