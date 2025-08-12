@@ -201,7 +201,7 @@ export default function EventDetailsScreen() {
                 </Text>
                 <Text style={styles.mapPlaceholderText}>
                   {language === 'en' ? 'Coordinates: ' : 'الإحداثيات: '}
-                  {event.venue.latitude.toFixed(4)}, {event.venue.longitude.toFixed(4)}
+                  {Number(event.venue.latitude).toFixed(4)}, {Number(event.venue.longitude).toFixed(4)}
                 </Text>
               </View>
             </View>
