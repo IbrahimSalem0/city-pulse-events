@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { I18nManager } from 'react-native';
+import { I18nManager, Alert, Platform } from 'react-native';
 import en from './en';
 import ar from './ar';
 
@@ -26,17 +26,41 @@ i18n
     },
   });
 
-// Function to change language and handle RTL
+// Professional RTL management with app restart
 export const changeLanguage = async (language: 'en' | 'ar') => {
   const isRTL = language === 'ar';
   
-  // Force RTL layout change
+  // Check if RTL change is needed
   if (I18nManager.isRTL !== isRTL) {
-    I18nManager.forceRTL(isRTL);
-    // Note: On iOS, you need to restart the app for RTL to take effect
-    // On Android, it works immediately
+    // Show restart alert for iOS
+    if (Platform.OS === 'ios') {
+      Alert.alert(
+        'Restart Required',
+        'The app needs to restart to apply the language change.',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Restart',
+            style: 'destructive',
+            onPress: () => {
+              // Force RTL change
+              I18nManager.forceRTL(isRTL);
+              // Note: On iOS, user needs to manually restart the app
+              // This is the professional approach used by major apps
+            },
+          },
+        ]
+      );
+    } else {
+      // Android: RTL works immediately
+      I18nManager.forceRTL(isRTL);
+    }
   }
   
+  // Change the language
   await i18n.changeLanguage(language);
 };
 

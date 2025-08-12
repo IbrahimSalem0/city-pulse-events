@@ -6,6 +6,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useApp } from '../../store/AppContext';
 import { SafeArea } from '../../components';
@@ -13,19 +14,20 @@ import { styles } from './ProfileScreen.styles';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const { user, language, updateLanguage, updateUser, favoriteEvents } = useApp();
 
   const handleLogout = () => {
     Alert.alert(
-      language === 'en' ? 'Logout' : 'تسجيل الخروج',
-      language === 'en' ? 'Are you sure you want to logout?' : 'هل أنت متأكد من تسجيل الخروج؟',
+      t('auth.logout'),
+      t('profile.logoutConfirm'),
       [
         {
-          text: language === 'en' ? 'Cancel' : 'إلغاء',
+          text: t('common.cancel'),
           style: 'cancel',
         },
         {
-          text: language === 'en' ? 'Logout' : 'تسجيل الخروج',
+          text: t('auth.logout'),
           style: 'destructive',
           onPress: () => updateUser(null),
         },
@@ -48,7 +50,7 @@ export default function ProfileScreen() {
       <SafeArea>
         <View style={styles.container}>
           <Text style={styles.errorText}>
-            {language === 'en' ? 'User not found' : 'المستخدم غير موجود'}
+            {t('errors.userNotFound')}
           </Text>
         </View>
       </SafeArea>
@@ -70,16 +72,16 @@ export default function ProfileScreen() {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>
-            {language === 'en' ? 'Account Settings' : 'إعدادات الحساب'}
+            {t('profile.accountSettings')}
           </Text>
 
           <TouchableOpacity style={styles.settingItem} onPress={toggleLanguage}>
             <View style={styles.settingContent}>
               <Text style={styles.settingLabel}>
-                {language === 'en' ? 'Language' : 'اللغة'}
+                {t('profile.language')}
               </Text>
               <Text style={styles.settingValue}>
-                {language === 'en' ? 'English' : 'العربية'}
+                {language === 'en' ? t('profile.english') : t('profile.arabic')}
               </Text>
             </View>
             <Text style={styles.settingArrow}>›</Text>
@@ -87,11 +89,11 @@ export default function ProfileScreen() {
 
           <TouchableOpacity
             style={styles.settingItem}
-            onPress={() => Alert.alert('Info', 'Profile editing would be implemented here')}
+            onPress={() => Alert.alert(t('common.info'), t('profile.editProfileInfo'))}
           >
             <View style={styles.settingContent}>
               <Text style={styles.settingLabel}>
-                {language === 'en' ? 'Edit Profile' : 'تعديل الملف الشخصي'}
+                {t('profile.editProfile')}
               </Text>
             </View>
             <Text style={styles.settingArrow}>›</Text>
@@ -99,11 +101,11 @@ export default function ProfileScreen() {
 
           <TouchableOpacity
             style={styles.settingItem}
-            onPress={() => Alert.alert('Info', 'Notifications settings would be implemented here')}
+            onPress={() => Alert.alert(t('common.info'), t('profile.notificationsInfo'))}
           >
             <View style={styles.settingContent}>
               <Text style={styles.settingLabel}>
-                {language === 'en' ? 'Notifications' : 'الإشعارات'}
+                {t('profile.notifications')}
               </Text>
             </View>
             <Text style={styles.settingArrow}>›</Text>
@@ -112,19 +114,19 @@ export default function ProfileScreen() {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>
-            {language === 'en' ? 'Favorites' : 'المفضلة'}
+            {t('profile.favorites')}
           </Text>
 
           <View style={styles.favoritesInfo}>
             <Text style={styles.favoritesCount}>
-              {favoriteEvents.length} {language === 'en' ? 'favorite events' : 'حدث مفضل'}
+              {favoriteEvents.length} {t('profile.events')}
             </Text>
             <TouchableOpacity
               style={styles.viewFavoritesButton}
               onPress={handleViewFavorites}
             >
               <Text style={styles.viewFavoritesButtonText}>
-                {language === 'en' ? 'View All' : 'عرض الكل'}
+                {t('profile.viewAll')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -132,19 +134,19 @@ export default function ProfileScreen() {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>
-            {language === 'en' ? 'App Information' : 'معلومات التطبيق'}
+            {t('profile.appInformation')}
           </Text>
 
           <View style={styles.infoItem}>
             <Text style={styles.infoLabel}>
-              {language === 'en' ? 'Version' : 'الإصدار'}
+              {t('profile.version')}
             </Text>
             <Text style={styles.infoValue}>1.0.0</Text>
           </View>
 
           <View style={styles.infoItem}>
             <Text style={styles.infoLabel}>
-              {language === 'en' ? 'Build' : 'البناء'}
+              {t('profile.build')}
             </Text>
             <Text style={styles.infoValue}>1</Text>
           </View>
@@ -152,7 +154,7 @@ export default function ProfileScreen() {
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutButtonText}>
-            {language === 'en' ? 'Logout' : 'تسجيل الخروج'}
+            {t('auth.logout')}
           </Text>
         </TouchableOpacity>
       </ScrollView>

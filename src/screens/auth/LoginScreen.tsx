@@ -6,18 +6,20 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useApp } from '../../store/AppContext';
 import { Button, Input, SafeArea } from '../../components';
 import { styles } from './LoginScreen.styles';
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { updateUser } = useApp();
 
   const handleLogin = () => {
     if (!email || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert(t('common.error'), t('auth.emailRequired'));
       return;
     }
 
@@ -32,13 +34,13 @@ export default function LoginScreen() {
       };
       updateUser(mockUser);
     } else {
-      Alert.alert('Error', 'Invalid credentials. Use demo@example.com / password');
+      Alert.alert(t('common.error'), t('auth.invalidCredentials'));
     }
   };
 
   const handleSignUp = () => {
     // Navigate to sign up screen
-    Alert.alert('Info', 'Sign up functionality would be implemented here');
+    Alert.alert(t('common.info'), t('auth.signupLink'));
   };
 
   return (
@@ -48,12 +50,12 @@ export default function LoginScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={styles.content}>
-          <Text style={styles.title}>Welcome Back</Text>
-          <Text style={styles.subtitle}>Sign in to continue</Text>
+          <Text style={styles.title}>{t('auth.login')}</Text>
+          <Text style={styles.subtitle}>{t('auth.login')}</Text>
 
           <View style={styles.form}>
             <Input
-              placeholder="Email"
+              placeholder={t('auth.email')}
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -62,7 +64,7 @@ export default function LoginScreen() {
             />
 
             <Input
-              placeholder="Password"
+              placeholder={t('auth.password')}
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -70,13 +72,13 @@ export default function LoginScreen() {
             />
 
             <Button
-              title="Sign In"
+              title={t('auth.loginButton')}
               onPress={handleLogin}
               style={styles.loginButton}
             />
 
             <Button
-              title="Don't have an account? Sign Up"
+              title={t('auth.noAccount')}
               onPress={handleSignUp}
               variant="outline"
               style={styles.signUpButton}
@@ -84,9 +86,9 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.demoInfo}>
-            <Text style={styles.demoText}>Demo Credentials:</Text>
-            <Text style={styles.demoText}>Email: demo@example.com</Text>
-            <Text style={styles.demoText}>Password: password</Text>
+            <Text style={styles.demoText}>{t('common.demo')}:</Text>
+            <Text style={styles.demoText}>{t('auth.email')}: demo@example.com</Text>
+            <Text style={styles.demoText}>{t('auth.password')}: password</Text>
           </View>
         </View>
       </KeyboardAvoidingView>
