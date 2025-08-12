@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { I18nManager, Alert, Platform } from 'react-native';
-import RNRestart from 'react-native-restart';
+import { I18nManager, Alert } from 'react-native';
+import * as Updates from 'expo-updates';
 import en from './en';
 import ar from './ar';
 
@@ -27,7 +27,7 @@ i18n
     },
   });
 
-// Professional RTL management with automatic restart
+// Professional RTL management with app reload
 export const changeLanguage = async (language: 'en' | 'ar') => {
   const isRTL = language === 'ar';
   
@@ -36,21 +36,30 @@ export const changeLanguage = async (language: 'en' | 'ar') => {
     // Force RTL change
     I18nManager.forceRTL(isRTL);
     
-    // Show restart alert
+    // Show reload alert
     Alert.alert(
-      'Restart Required',
-      'The app will restart to apply the language change.',
+      'Reload Required',
+      'The app will reload to apply the language change.',
       [
         {
           text: 'Cancel',
           style: 'cancel',
         },
         {
-          text: 'Restart Now',
+          text: 'Reload Now',
           style: 'destructive',
-          onPress: () => {
-            // Automatically restart the app
-            RNRestart.Restart();
+          onPress: async () => {
+            try {
+              // Reload the app using expo-updates
+              await Updates.reloadAsync();
+            } catch (error) {
+              console.log('Reload failed, falling back to manual restart');
+              // Fallback: user needs to manually restart
+              Alert.alert(
+                'Manual Restart Required',
+                'Please close and reopen the app to apply changes.'
+              );
+            }
           },
         },
       ]
