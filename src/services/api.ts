@@ -91,35 +91,40 @@ export class ApiService {
 
   static async getEventDetails(eventId: string): Promise<Event> {
     try {
-      const response = await this.makeRequest<{_embedded: {events: any[]}}>(`/events/${eventId}.json`);
+      const response = await this.makeRequest<any>(`/events/${eventId}.json`);
       
-      if (!response._embedded?.events?.[0]) {
+      // Handle different response structures from Ticketmaster
+      let event;
+      if (response._embedded?.events?.[0]) {
+        event = response._embedded.events[0];
+      } else if (response.id) {
+        // Direct event response
+        event = response;
+      } else {
         throw new Error('Event not found');
       }
-
-      const event = response._embedded.events[0];
       
       return {
         id: event.id,
         name: event.name,
-        description: event.info,
-        startDate: event.dates?.start?.dateTime || event.dates?.start?.localDate,
-        endDate: event.dates?.end?.dateTime || event.dates?.end?.localDate,
+        description: event.info || event.description || event.pleaseNote || '',
+        startDate: event.dates?.start?.dateTime || event.dates?.start?.localDate || event.dates?.start?.dateTime,
+        endDate: event.dates?.end?.dateTime || event.dates?.end?.localDate || event.dates?.end?.dateTime,
         venue: {
-          name: event._embedded?.venues?.[0]?.name || 'Unknown Venue',
-          address: event._embedded?.venues?.[0]?.address?.line1 || '',
-          city: event._embedded?.venues?.[0]?.city?.name || '',
-          country: event._embedded?.venues?.[0]?.country?.countryCode || '',
-          latitude: event._embedded?.venues?.[0]?.location?.latitude,
-          longitude: event._embedded?.venues?.[0]?.location?.longitude,
+          name: event._embedded?.venues?.[0]?.name || event.venue?.name || 'Unknown Venue',
+          address: event._embedded?.venues?.[0]?.address?.line1 || event.venue?.address?.line1 || '',
+          city: event._embedded?.venues?.[0]?.city?.name || event.venue?.city?.name || '',
+          country: event._embedded?.venues?.[0]?.country?.countryCode || event.venue?.country?.countryCode || '',
+          latitude: event._embedded?.venues?.[0]?.location?.latitude || event.venue?.location?.latitude,
+          longitude: event._embedded?.venues?.[0]?.location?.longitude || event.venue?.location?.longitude,
         },
-        imageUrl: event.images?.[0]?.url,
+        imageUrl: event.images?.[0]?.url || event.imageUrl,
         priceRange: event.priceRanges?.[0] ? {
           min: event.priceRanges[0].min,
           max: event.priceRanges[0].max,
           currency: event.priceRanges[0].currency,
         } : undefined,
-        category: event.classifications?.[0]?.segment?.name || 'Other',
+        category: event.classifications?.[0]?.segment?.name || event.segment?.name || 'Other',
       };
     } catch (error) {
       console.error('Error getting event details:', error);

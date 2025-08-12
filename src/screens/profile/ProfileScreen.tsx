@@ -13,7 +13,7 @@ import { styles } from './ProfileScreen.styles';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
-  const { user, language, updateLanguage, updateUser } = useApp();
+  const { user, language, updateLanguage, updateUser, favoriteEvents } = useApp();
 
   const handleLogout = () => {
     Alert.alert(
@@ -40,7 +40,7 @@ export default function ProfileScreen() {
 
   const handleViewFavorites = () => {
     // Navigate to favorites screen
-    Alert.alert('Info', 'Favorites screen navigation would be implemented here');
+    navigation.navigate('Favorites' as never);
   };
 
   if (!user) {
@@ -117,7 +117,7 @@ export default function ProfileScreen() {
 
           <View style={styles.favoritesInfo}>
             <Text style={styles.favoritesCount}>
-              {user.favoriteEvents.length} {language === 'en' ? 'favorite events' : 'حدث مفضل'}
+              {favoriteEvents.length} {language === 'en' ? 'favorite events' : 'حدث مفضل'}
             </Text>
             <TouchableOpacity
               style={styles.viewFavoritesButton}

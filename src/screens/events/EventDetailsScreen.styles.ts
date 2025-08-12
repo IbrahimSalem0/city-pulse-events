@@ -31,17 +31,24 @@ export const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     padding: SPACING.lg,
     backgroundColor: COLORS.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  backButton: {
+    padding: SPACING.sm,
+    marginRight: SPACING.sm,
+  },
+  backButtonText: {
+    fontSize: FONT_SIZES.lg,
   },
   title: {
-    flex: 1,
     fontSize: FONT_SIZES.xl,
     fontWeight: 'bold',
     color: COLORS.text,
-    marginRight: SPACING.md,
+    flex: 1,
   },
   favoriteButton: {
     width: 44,

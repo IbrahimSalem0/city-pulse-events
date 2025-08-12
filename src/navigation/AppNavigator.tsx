@@ -11,6 +11,7 @@ import SplashScreen from '../screens/SplashScreen';
 import HomeScreen from '../screens/events/HomeScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import EventDetailsScreen from '../screens/events/EventDetailsScreen';
+import FavoritesScreen from '../screens/profile/FavoritesScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 
@@ -84,6 +85,7 @@ export default function AppNavigator() {
           <>
             <Stack.Screen name="Main" component={MainTabs} />
             <Stack.Screen name="EventDetails" component={EventDetailsScreen} />
+            <Stack.Screen name="Favorites" component={FavoritesScreen} />
           </>
         )}
       </Stack.Navigator>

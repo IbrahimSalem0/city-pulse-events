@@ -4,17 +4,32 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useApp } from '../../store/AppContext';
 import { EventCard, SafeArea, Loading } from '../../components';
 import { COLORS, SPACING, FONT_SIZES } from '../../constants';
 
 export default function FavoritesScreen() {
+  const navigation = useNavigation();
   const { favoriteEvents, language } = useApp();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
 
   if (favoriteEvents.length === 0) {
     return (
       <SafeArea>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+            <Text style={styles.backButtonText}>⬅️</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>
+            {language === 'en' ? 'Favorites' : 'المفضلة'}
+          </Text>
+        </View>
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyIcon}>🤍</Text>
           <Text style={styles.emptyTitle}>
@@ -33,8 +48,16 @@ export default function FavoritesScreen() {
 
   return (
     <SafeArea>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+          <Text style={styles.backButtonText}>⬅️</Text>
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>
+          {language === 'en' ? 'Favorites' : 'المفضلة'}
+        </Text>
+      </View>
       <ScrollView style={styles.container}>
-        <View style={styles.header}>
+        <View style={styles.headerInfo}>
           <Text style={styles.title}>
             {language === 'en' ? 'Favorite Events' : 'الأحداث المفضلة'}
           </Text>
@@ -67,6 +90,26 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: SPACING.lg,
+    backgroundColor: COLORS.surface,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  backButton: {
+    padding: SPACING.sm,
+    marginRight: SPACING.sm,
+  },
+  backButtonText: {
+    fontSize: FONT_SIZES.lg,
+  },
+  headerTitle: {
+    fontSize: FONT_SIZES.lg,
+    fontWeight: '600',
+    color: COLORS.text,
+  },
+  headerInfo: {
     padding: SPACING.lg,
     backgroundColor: COLORS.surface,
   },

@@ -1,11 +1,11 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 
 export type RootStackParamList = {
-  Splash: undefined;
-  Main: NavigatorScreenParams<MainTabParamList>;
-  EventDetails: { eventId: string };
   Login: undefined;
   SignUp: undefined;
+  Main: undefined;
+  EventDetails: { eventId: string };
+  Favorites: undefined;
 };
 
 export type MainTabParamList = {

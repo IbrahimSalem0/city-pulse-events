@@ -7,15 +7,18 @@ import {
   Alert,
   Image,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEventDetails } from '../../hooks/useEvents';
 import { useApp } from '../../store/AppContext';
 import { Loading, SafeArea } from '../../components';
 import { styles } from './EventDetailsScreen.styles';
 
-export default function EventDetailsScreen({ route }: any) {
-  const { eventId } = route.params;
+export default function EventDetailsScreen() {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { eventId } = route.params as { eventId: string };
   const { data: event, isLoading, error } = useEventDetails(eventId);
-  const { favoriteEvents, toggleFavorite, language } = useApp();
+  const { language, toggleFavorite, favoriteEvents } = useApp();
 
   if (isLoading) {
     return (
@@ -39,7 +42,7 @@ export default function EventDetailsScreen({ route }: any) {
     );
   }
 
-  const isFavorite = favoriteEvents.includes(event.id);
+  const isFavorite = favoriteEvents.includes(eventId);
 
   const formatDate = (dateString: string) => {
     try {
@@ -59,7 +62,7 @@ export default function EventDetailsScreen({ route }: any) {
   };
 
   const handleFavoriteToggle = () => {
-    toggleFavorite(event.id);
+    toggleFavorite(eventId);
     Alert.alert(
       isFavorite 
         ? (language === 'en' ? 'Removed from favorites' : 'تمت الإزالة من المفضلة')
@@ -67,10 +70,17 @@ export default function EventDetailsScreen({ route }: any) {
     );
   };
 
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
   return (
     <SafeArea>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
+          <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+            <Text style={styles.backButtonText}>⬅️</Text>
+          </TouchableOpacity>
           <Text style={styles.title}>{event.name}</Text>
           <TouchableOpacity
             style={[styles.favoriteButton, isFavorite && styles.favoriteButtonActive]}
