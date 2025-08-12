@@ -6,13 +6,13 @@ import { View, Text } from 'react-native';
 import { useApp } from '../store/AppContext';
 import { RootStackParamList, MainTabParamList } from './types';
 
-// Import screens (we'll create these next)
+// Import screens
 import SplashScreen from '../screens/SplashScreen';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import EventDetailsScreen from '../screens/EventDetailsScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignUpScreen from '../screens/SignUpScreen';
+import HomeScreen from '../screens/events/HomeScreen';
+import ProfileScreen from '../screens/profile/ProfileScreen';
+import EventDetailsScreen from '../screens/events/EventDetailsScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();

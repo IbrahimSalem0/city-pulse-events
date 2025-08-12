@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   Alert,
 } from 'react-native';
-import { useEvents, useCategories } from '../hooks/useEvents';
-import { useApp } from '../store/AppContext';
-import { COLORS, SPACING, FONT_SIZES, DEFAULT_CITY } from '../constants';
-import { SearchParams } from '../types';
-import { Loading, Error, Button, Input, EventCard, SafeArea } from '../components';
+import { useEvents, useCategories } from '../../hooks/useEvents';
+import { useApp } from '../../store/AppContext';
+import { DEFAULT_CITY } from '../../constants';
+import { SearchParams } from '../../types';
+import { Loading, Error, Button, Input, EventCard, SafeArea } from '../../components';
+import { styles } from './HomeScreen.styles';
 
 export default function HomeScreen() {
   const [searchParams, setSearchParams] = useState<SearchParams>({});
@@ -147,52 +147,3 @@ export default function HomeScreen() {
     </SafeArea>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: SPACING.lg,
-    backgroundColor: COLORS.surface,
-  },
-  title: {
-    fontSize: FONT_SIZES.xl,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-  },
-  searchSection: {
-    padding: SPACING.lg,
-  },
-  categoriesContainer: {
-    marginBottom: SPACING.md,
-  },
-  categoryButton: {
-    marginRight: SPACING.sm,
-  },
-  searchButton: {
-    marginTop: SPACING.sm,
-  },
-  resultsSection: {
-    padding: SPACING.lg,
-  },
-  resultsTitle: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: '600',
-    color: COLORS.text,
-    marginBottom: SPACING.md,
-  },
-  noResults: {
-    alignItems: 'center',
-    padding: SPACING.xl,
-  },
-  noResultsText: {
-    color: COLORS.textSecondary,
-    fontSize: FONT_SIZES.md,
-    textAlign: 'center',
-  },
-});

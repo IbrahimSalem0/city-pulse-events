@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Alert,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { useApp } from '../store/AppContext';
-import { COLORS, SPACING, FONT_SIZES } from '../constants';
-import { Button, Input, SafeArea } from '../components';
+import { useApp } from '../../store/AppContext';
+import { Button, Input, SafeArea } from '../../components';
+import { styles } from './LoginScreen.styles';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -94,50 +93,3 @@ export default function LoginScreen() {
     </SafeArea>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: SPACING.xl,
-  },
-  title: {
-    fontSize: FONT_SIZES.xxxl,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-    textAlign: 'center',
-    marginBottom: SPACING.sm,
-  },
-  subtitle: {
-    fontSize: FONT_SIZES.lg,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    marginBottom: SPACING.xl,
-  },
-  form: {
-    marginBottom: SPACING.xl,
-  },
-  loginButton: {
-    marginBottom: SPACING.md,
-  },
-  signUpButton: {
-    alignItems: 'center',
-  },
-  demoInfo: {
-    backgroundColor: COLORS.surface,
-    padding: SPACING.md,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  demoText: {
-    color: COLORS.textSecondary,
-    fontSize: FONT_SIZES.sm,
-    textAlign: 'center',
-    marginBottom: SPACING.xs,
-  },
-});

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { COLORS, SPACING, FONT_SIZES } from '../constants';
+import { Text } from 'react-native';
 import { SafeArea } from '../components';
+import { styles } from './SplashScreen.styles';
 
 export default function SplashScreen() {
   return (
@@ -11,19 +11,3 @@ export default function SplashScreen() {
     </SafeArea>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: FONT_SIZES.xxxl,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-    textAlign: 'center',
-    marginBottom: SPACING.sm,
-  },
-  subtitle: {
-    fontSize: FONT_SIZES.lg,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    marginBottom: SPACING.xl,
-  },
-});
