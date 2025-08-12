@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Text } from 'react-native';
 import { useApp } from '../store/AppContext';
 import { RootStackParamList, MainTabParamList } from './types';
 
@@ -50,9 +51,11 @@ function MainTabs() {
 function TabIcon({ name, color, size }: { name: string; color: string; size: number }) {
   // We'll use a simple text icon for now, can be replaced with vector icons later
   return (
-    <div style={{ color, fontSize: size }}>
-      {name === 'home' ? '🏠' : '👤'}
-    </div>
+    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ color, fontSize: size }}>
+        {name === 'home' ? '🏠' : '👤'}
+      </Text>
+    </View>
   );
 }
 
