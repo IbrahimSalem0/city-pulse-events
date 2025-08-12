@@ -1,20 +1,29 @@
+import { Platform, StatusBar } from 'react-native';
+
+// API Configuration
 export const API_CONFIG = {
   BASE_URL: 'https://app.ticketmaster.com/discovery/v2',
   CONSUMER_KEY: 'HWbd3YMOdikgJGw5G6qCEYzAQueRb0wM',
   CONSUMER_SECRET: 'MDKdXb4wZLQYJipl',
 };
 
+// Status Bar Heights
+export const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight || 0);
+export const TOP_SPACING = STATUS_BAR_HEIGHT + 10; // Extra padding for content
+
+// Colors
 export const COLORS = {
   primary: '#007AFF',
   secondary: '#5856D6',
-  background: '#FFFFFF',
-  surface: '#F2F2F7',
+  success: '#34C759',
+  warning: '#FF9500',
+  danger: '#FF3B30',
+  background: '#F2F2F7',
+  surface: '#FFFFFF',
   text: '#000000',
   textSecondary: '#8E8E93',
   border: '#C6C6C8',
-  success: '#34C759',
-  error: '#FF3B30',
-  warning: '#FF9500',
+  placeholder: '#C7C7CC',
 };
 
 export const SPACING = {
