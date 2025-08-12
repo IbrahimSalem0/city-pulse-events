@@ -53,3 +53,6 @@ export const LANGUAGES = {
   en: 'English',
   ar: 'العربية',
 } as const;
+
+export const DEFAULT_CITY = 'Dubai';
+export const DEFAULT_COUNTRY = 'AE';

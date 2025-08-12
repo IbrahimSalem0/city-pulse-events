@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
   Alert,
   KeyboardAvoidingView,
@@ -11,6 +9,7 @@ import {
 } from 'react-native';
 import { useApp } from '../store/AppContext';
 import { COLORS, SPACING, FONT_SIZES } from '../constants';
+import { Button, Input, SafeArea } from '../components';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -44,52 +43,55 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <View style={styles.content}>
-        <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Sign in to continue</Text>
+    <SafeArea>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.content}>
+          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Sign in to continue</Text>
 
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
+          <View style={styles.form}>
+            <Input
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            autoCapitalize="none"
-          />
+            <Input
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              autoCapitalize="none"
+            />
 
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.loginButtonText}>Sign In</Text>
-          </TouchableOpacity>
+            <Button
+              title="Sign In"
+              onPress={handleLogin}
+              style={styles.loginButton}
+            />
 
-          <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-            <Text style={styles.signUpButtonText}>
-              Don't have an account? Sign Up
-            </Text>
-          </TouchableOpacity>
+            <Button
+              title="Don't have an account? Sign Up"
+              onPress={handleSignUp}
+              variant="outline"
+              style={styles.signUpButton}
+            />
+          </View>
+
+          <View style={styles.demoInfo}>
+            <Text style={styles.demoText}>Demo Credentials:</Text>
+            <Text style={styles.demoText}>Email: demo@example.com</Text>
+            <Text style={styles.demoText}>Password: password</Text>
+          </View>
         </View>
-
-        <View style={styles.demoInfo}>
-          <Text style={styles.demoText}>Demo Credentials:</Text>
-          <Text style={styles.demoText}>Email: demo@example.com</Text>
-          <Text style={styles.demoText}>Password: password</Text>
-        </View>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeArea>
   );
 }
 
@@ -119,33 +121,11 @@ const styles = StyleSheet.create({
   form: {
     marginBottom: SPACING.xl,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
-    padding: SPACING.md,
-    marginBottom: SPACING.md,
-    fontSize: FONT_SIZES.md,
-    backgroundColor: COLORS.surface,
-  },
   loginButton: {
-    backgroundColor: COLORS.primary,
-    borderRadius: 8,
-    padding: SPACING.md,
-    alignItems: 'center',
     marginBottom: SPACING.md,
-  },
-  loginButtonText: {
-    color: COLORS.background,
-    fontSize: FONT_SIZES.md,
-    fontWeight: '600',
   },
   signUpButton: {
     alignItems: 'center',
-  },
-  signUpButtonText: {
-    color: COLORS.primary,
-    fontSize: FONT_SIZES.md,
   },
   demoInfo: {
     backgroundColor: COLORS.surface,
