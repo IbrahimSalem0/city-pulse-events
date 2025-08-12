@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES } from '../../constants';
 import { Event } from '../../types';
 
@@ -19,7 +19,14 @@ export default function EventCard({
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString();
+      // Use Georgian calendar with proper locale formatting
+      return date.toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
     } catch {
       return dateString;
     }
@@ -27,6 +34,9 @@ export default function EventCard({
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.8}>
+      {event.imageUrl && (
+        <Image source={{ uri: event.imageUrl }} style={styles.eventImage} />
+      )}
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title} numberOfLines={2}>
@@ -71,6 +81,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     overflow: 'hidden',
+  },
+  eventImage: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
   },
   content: {
     padding: SPACING.md,

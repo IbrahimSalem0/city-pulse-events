@@ -6,11 +6,13 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useApp } from '../../store/AppContext';
 import { SafeArea } from '../../components';
 import { styles } from './ProfileScreen.styles';
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
   const { user, language, updateLanguage, updateUser } = useApp();
 
   const handleLogout = () => {
@@ -34,6 +36,11 @@ export default function ProfileScreen() {
   const toggleLanguage = () => {
     const newLanguage = language === 'en' ? 'ar' : 'en';
     updateLanguage(newLanguage);
+  };
+
+  const handleViewFavorites = () => {
+    // Navigate to favorites screen
+    Alert.alert('Info', 'Favorites screen navigation would be implemented here');
   };
 
   if (!user) {
@@ -114,7 +121,7 @@ export default function ProfileScreen() {
             </Text>
             <TouchableOpacity
               style={styles.viewFavoritesButton}
-              onPress={() => Alert.alert('Info', 'Favorites list would be implemented here')}
+              onPress={handleViewFavorites}
             >
               <Text style={styles.viewFavoritesButtonText}>
                 {language === 'en' ? 'View All' : 'عرض الكل'}

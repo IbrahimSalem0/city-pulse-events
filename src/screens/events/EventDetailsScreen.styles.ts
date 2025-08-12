@@ -69,6 +69,11 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: COLORS.border,
+    overflow: 'hidden',
+  },
+  eventImage: {
+    width: '100%',
+    height: '100%',
   },
   imagePlaceholder: {
     color: COLORS.textSecondary,

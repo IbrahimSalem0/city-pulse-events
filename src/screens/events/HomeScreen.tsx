@@ -5,6 +5,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useEvents, useCategories } from '../../hooks/useEvents';
 import { useApp } from '../../store/AppContext';
 import { DEFAULT_CITY } from '../../constants';
@@ -13,6 +14,7 @@ import { Loading, Error, Button, Input, EventCard, SafeArea } from '../../compon
 import { styles } from './HomeScreen.styles';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const [searchParams, setSearchParams] = useState<SearchParams>({});
   const [keyword, setKeyword] = useState('');
   const [city, setCity] = useState(DEFAULT_CITY);
@@ -41,8 +43,7 @@ export default function HomeScreen() {
   };
 
   const handleEventPress = (eventId: string) => {
-    // Navigate to event details
-    Alert.alert('Info', 'Navigation to event details would be implemented here');
+    navigation.navigate('EventDetails' as never, { eventId } as never);
   };
 
   if (error) {

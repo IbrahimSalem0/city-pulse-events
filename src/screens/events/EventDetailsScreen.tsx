@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
 import { useEventDetails } from '../../hooks/useEvents';
 import { useApp } from '../../store/AppContext';
@@ -43,7 +44,15 @@ export default function EventDetailsScreen({ route }: any) {
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+      // Use Georgian calendar with proper locale formatting
+      return date.toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
     } catch {
       return dateString;
     }
@@ -75,9 +84,11 @@ export default function EventDetailsScreen({ route }: any) {
 
         {event.imageUrl && (
           <View style={styles.imageContainer}>
-            <Text style={styles.imagePlaceholder}>
-              {language === 'en' ? 'Event Image' : 'صورة الحدث'}
-            </Text>
+            <Image 
+              source={{ uri: event.imageUrl }} 
+              style={styles.eventImage}
+              resizeMode="cover"
+            />
           </View>
         )}
 
