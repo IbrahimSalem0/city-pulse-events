@@ -32,7 +32,40 @@ A React Native mobile application for discovering and exploring local events usi
 
 ## 📱 Screenshots
 
-*Screenshots will be added here after running the app*
+### App Screenshots
+*Add your screenshots here by placing them in the `screenshots/` folder and updating the paths below:*
+
+#### Authentication Flow
+![Login Screen](screenshots/login-screen.png)
+*Login screen with app branding and password toggle*
+
+![Sign Up Screen](screenshots/signup-screen.png)
+*Sign up screen with form validation*
+
+#### Main App Features
+![Home Screen](screenshots/home-screen.png)
+*Home screen with event search and categories*
+
+![Event Details](screenshots/event-details.png)
+*Event details with venue information and map preview*
+
+![Profile Screen](screenshots/profile-screen.png)
+*User profile with language toggle and favorites*
+
+![Favorites Screen](screenshots/favorites-screen.png)
+*Favorites screen showing saved events*
+
+### How to Add Screenshots
+1. **Take screenshots** of your app running on simulator/device
+2. **Save them** in the `screenshots/` folder
+3. **Update the paths** in this README to match your screenshot filenames
+4. **Commit and push** the screenshots with your code
+
+**Recommended screenshot sizes:**
+- iOS Simulator: 390x844 (iPhone 14)
+- Android Emulator: 360x800 (Pixel 4)
+- Format: PNG or JPG
+- Quality: High resolution for professional appearance
 
 ## 🚀 Getting Started
 
