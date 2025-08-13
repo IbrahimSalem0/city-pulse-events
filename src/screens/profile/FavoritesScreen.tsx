@@ -3,17 +3,21 @@ import {
   View,
   Text,
   FlatList,
-  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useApp } from '../../store/AppContext';
 import { useEvents } from '../../hooks/useEvents';
 import { EventCard, StatusBarSpacer } from '../../components';
-import { COLORS, SPACING, FONT_SIZES } from '../../constants';
+import { COLORS } from '../../constants';
+import { styles } from './FavoritesScreen.styles';
+import { RootStackParamList } from '../../navigation/types';
+
+type FavoritesScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EventDetails'>;
 
 export default function FavoritesScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<FavoritesScreenNavigationProp>();
   const { favoriteEvents, language } = useApp();
 
   // Fetch all events to get details for favorites
@@ -33,7 +37,7 @@ export default function FavoritesScreen() {
   }, [navigation]);
 
   const handleEventPress = useCallback((eventId: string) => {
-    navigation.navigate('EventDetails' as never, { eventId } as never);
+    navigation.navigate('EventDetails', { eventId });
   }, [navigation]);
 
   const handleFavoriteToggle = useCallback((eventId: string) => {
@@ -113,70 +117,3 @@ export default function FavoritesScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: SPACING.lg,
-    backgroundColor: COLORS.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  backButton: {
-    padding: SPACING.sm,
-    marginRight: SPACING.sm,
-  },
-  backButtonText: {
-    fontSize: FONT_SIZES.lg,
-  },
-  headerTitle: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: '600',
-    color: COLORS.text,
-  },
-  headerInfo: {
-    padding: SPACING.lg,
-    backgroundColor: COLORS.surface,
-  },
-  title: {
-    fontSize: FONT_SIZES.xl,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-    marginBottom: SPACING.xs,
-  },
-  subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-  },
-  listContent: {
-    paddingBottom: SPACING.xl, // Add some padding at the bottom for the last item
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: SPACING.xl,
-  },
-  emptyIcon: {
-    fontSize: 64,
-    marginBottom: SPACING.lg,
-  },
-  emptyTitle: {
-    fontSize: FONT_SIZES.xl,
-    fontWeight: '600',
-    color: COLORS.text,
-    marginBottom: SPACING.sm,
-    textAlign: 'center',
-  },
-  emptySubtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    textAlign: 'center',
-    lineHeight: 24,
-  },
-});

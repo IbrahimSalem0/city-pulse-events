@@ -22,9 +22,9 @@ export default function SafeArea({
         styles.container,
         {
           paddingTop: insets.top,
+          paddingStart: insets.left,
+          paddingEnd: insets.right,
           paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
           backgroundColor,
         },
         style,

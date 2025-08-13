@@ -1,0 +1,16 @@
+# add all ios files not need for git
+ios/
+*.xcarchive
+*.xcframework
+*.xcscheme
+*.xcworkspace
+*.xcodeproj
+*.xcodeproj.user
+*.xcodeproj.user.xcshareddata
+*.xcodeproj.user.xcshareddata.xcschemes
+
+# add Pods directory
+Pods/
+
+
+

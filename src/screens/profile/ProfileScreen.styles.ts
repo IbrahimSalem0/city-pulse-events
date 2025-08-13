@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { COLORS, SPACING, FONT_SIZES } from '../../constants';
+import { StyleSheet } from "react-native";
+import { COLORS, SPACING, FONT_SIZES } from "../../constants";
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: SPACING.xl,
     backgroundColor: COLORS.surface,
   },
@@ -16,18 +16,18 @@ export const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     backgroundColor: COLORS.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: SPACING.md,
   },
   avatarText: {
     fontSize: FONT_SIZES.xxxl,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: COLORS.background,
   },
   userName: {
     fontSize: FONT_SIZES.xl,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
     marginBottom: SPACING.xs,
   },
@@ -40,39 +40,15 @@ export const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: FONT_SIZES.lg,
-    fontWeight: '600',
+    fontWeight: "600",
     color: COLORS.text,
     marginBottom: SPACING.md,
-  },
-  settingItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: COLORS.surface,
-    padding: SPACING.md,
-    borderRadius: 8,
-    marginBottom: SPACING.sm,
-  },
-  settingContent: {
-    flex: 1,
-  },
-  settingLabel: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.text,
-    marginBottom: SPACING.xs,
-  },
-  settingValue: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textSecondary,
-  },
-  settingArrow: {
-    fontSize: FONT_SIZES.lg,
-    color: COLORS.textSecondary,
+    textAlign: "left",
   },
   favoritesInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: COLORS.surface,
     padding: SPACING.md,
     borderRadius: 8,
@@ -80,6 +56,7 @@ export const styles = StyleSheet.create({
   favoritesCount: {
     fontSize: FONT_SIZES.md,
     color: COLORS.text,
+    textAlign: "left",
   },
   viewFavoritesButton: {
     backgroundColor: COLORS.primary,
@@ -90,40 +67,24 @@ export const styles = StyleSheet.create({
   viewFavoritesButtonText: {
     color: COLORS.background,
     fontSize: FONT_SIZES.sm,
-    fontWeight: '600',
+    fontWeight: "600",
   },
-  infoItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: COLORS.surface,
-    padding: SPACING.md,
-    borderRadius: 8,
-    marginBottom: SPACING.sm,
-  },
-  infoLabel: {
+  errorText: {
+    color: COLORS.error,
     fontSize: FONT_SIZES.md,
-    color: COLORS.text,
-  },
-  infoValue: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
+    textAlign: "center",
+    padding: SPACING.xl,
   },
   logoutButton: {
     backgroundColor: COLORS.error,
     margin: SPACING.lg,
     padding: SPACING.md,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   logoutButtonText: {
     color: COLORS.background,
     fontSize: FONT_SIZES.md,
-    fontWeight: '600',
-  },
-  errorText: {
-    color: COLORS.error,
-    fontSize: FONT_SIZES.md,
-    textAlign: 'center',
-    padding: SPACING.xl,
+    fontWeight: "600",
   },
 });

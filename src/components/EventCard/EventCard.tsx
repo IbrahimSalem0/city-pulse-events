@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.text,
     flex: 1,
-    marginRight: SPACING.md,
+    marginEnd: SPACING.md,
     lineHeight: 24,
   },
   favoriteButton: {

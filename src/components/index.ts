@@ -4,4 +4,6 @@ export { default as Button } from './Button/Button';
 export { default as Input } from './Input/Input';
 export { default as EventCard } from './EventCard/EventCard';
 export { default as SafeArea } from './SafeArea/SafeArea';
+export { default as SettingItem } from './SettingItem/SettingItem';
+export { default as InfoItem } from './InfoItem/InfoItem';
 export { default as StatusBarSpacer } from './StatusBarSpacer/StatusBarSpacer';

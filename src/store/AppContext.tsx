@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import { I18nManager, Alert } from 'react-native';
+import * as Updates from 'expo-updates';
 import { StorageService } from '../services/storage';
 import { User, Event } from '../types';
 import { changeLanguage, getCurrentLanguage } from '../locales';
@@ -74,7 +76,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
         if (user) dispatch({ type: 'SET_USER', payload: user });
         if (favorites) dispatch({ type: 'SET_FAVORITE_EVENTS', payload: favorites });
-        if (language) dispatch({ type: 'SET_LANGUAGE', payload: language });
+        if (language) {
+          dispatch({ type: 'SET_LANGUAGE', payload: language });
+          // Sync i18n language with stored language
+          await changeLanguage(language);
+          
+          // Apply RTL setting from stored language
+          const isRTL = language === 'ar';
+          if (I18nManager.isRTL !== isRTL) {
+            I18nManager.forceRTL(isRTL);
+          }
+        }
       } catch (error) {
         console.error('Error loading initial data:', error);
       } finally {
@@ -114,9 +126,61 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const updateLanguage = async (language: 'en' | 'ar') => {
     try {
-      // Use the new i18n system
-      await changeLanguage(language);
-      dispatch({ type: 'SET_LANGUAGE', payload: language });
+      const isRTL = language === 'ar';
+      const currentRTL = I18nManager.isRTL;
+      
+      // If RTL is already correct, just change language
+      if (isRTL === currentRTL) {
+        dispatch({ type: 'SET_LANGUAGE', payload: language });
+        await changeLanguage(language);
+        return;
+      }
+      
+      // RTL change needed - show alert first
+      Alert.alert(
+        'Change Language',
+        'The app will reload to apply the language change.',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Continue',
+            onPress: async () => {
+              try {
+                // Update state and language first
+                dispatch({ type: 'SET_LANGUAGE', payload: language });
+                await changeLanguage(language);
+                
+                // Force RTL change
+                I18nManager.forceRTL(isRTL);
+                
+                // Try to reload app using expo-updates
+                try {
+                  await Updates.reloadAsync();
+                } catch (reloadError) {
+                  // Fallback for development mode: show manual restart message
+                  Alert.alert(
+                    'Manual Restart Required',
+                    'Please close and reopen the app to apply the layout changes.',
+                    [
+                      {
+                        text: 'OK',
+                        onPress: () => {
+                          // In development, we can't auto-reload, so just inform the user
+                        },
+                      },
+                    ]
+                  );
+                }
+              } catch (error) {
+                console.error('Error during language change:', error);
+              }
+            },
+          },
+        ]
+      );
     } catch (error) {
       console.error('Error changing language:', error);
     }

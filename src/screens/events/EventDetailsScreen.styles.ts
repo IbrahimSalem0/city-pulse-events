@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   },
   backButton: {
     padding: SPACING.sm,
-    marginRight: SPACING.sm,
+    marginEnd: SPACING.sm,
   },
   backButtonText: {
     fontSize: FONT_SIZES.lg,
@@ -116,7 +116,7 @@ export const styles = StyleSheet.create({
     fontSize: FONT_SIZES.md,
     color: COLORS.text,
     flex: 2,
-    textAlign: 'right',
+    textAlign: 'right', // This will automatically flip to 'left' in RTL mode
   },
   description: {
     fontSize: FONT_SIZES.md,

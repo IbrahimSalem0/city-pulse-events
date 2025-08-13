@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.primary,
     flex: 1,
+    textAlign: 'left',
   },
   languageToggle: {
     backgroundColor: COLORS.primary,
@@ -62,6 +63,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     color: COLORS.text,
     marginBottom: SPACING.sm,
+    textAlign: 'left',
   },
   categoriesList: {
     flexDirection: 'row',

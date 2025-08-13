@@ -18,6 +18,7 @@ export const COLORS = {
   success: '#34C759',
   warning: '#FF9500',
   danger: '#FF3B30',
+  error: '#FF3B30', // Same as danger for consistency
   background: '#F2F2F7',
   surface: '#FFFFFF',
   text: '#000000',

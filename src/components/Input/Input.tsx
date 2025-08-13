@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, Text, StyleSheet, TextInputProps } from 'react-native';
+import { TextInput, View, Text, StyleSheet, TextInputProps, I18nManager } from 'react-native';
 import { COLORS, SPACING, FONT_SIZES } from '../../constants';
 
 interface InputProps extends TextInputProps {
@@ -25,6 +25,7 @@ export default function Input({
           style,
         ]}
         placeholderTextColor={COLORS.textSecondary}
+        textAlign={I18nManager.isRTL ? 'right' : 'left'}
         {...props}
       />
       {error && <Text style={styles.errorText}>{error}</Text>}
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginBottom: SPACING.xs,
     fontWeight: '500',
+    textAlign: 'left',
   },
   input: {
     borderWidth: 1,
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.md,
     backgroundColor: COLORS.surface,
     color: COLORS.text,
+    textAlign: 'left',
   },
   inputError: {
     borderColor: COLORS.error,
@@ -58,5 +61,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.sm,
     color: COLORS.error,
     marginTop: SPACING.xs,
+    textAlign: 'left',
   },
 });
