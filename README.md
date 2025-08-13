@@ -55,15 +55,29 @@ A React Native mobile application for discovering and exploring local events usi
    yarn install
    ```
 
-3. **Start the development server**
+3. **Development Mode (Recommended)**
    ```bash
+   # Start the development server
    yarn start
+   
+   # Run on iOS simulator (development build)
+   npx expo run:ios
+   
+   # Run on Android emulator (development build)
+   npx expo run:android
    ```
 
-4. **Run on device/simulator**
-   - Press `i` for iOS simulator
-   - Press `a` for Android emulator
-   - Scan QR code with Expo Go app on physical device
+4. **Expo Go (Quick Testing)**
+   ```bash
+   # Start the development server
+   yarn start
+   
+   # Press 'i' for iOS simulator
+   # Press 'a' for Android emulator
+   # Scan QR code with Expo Go app on physical device
+   ```
+
+**Note**: For development mode with native code access, use `npx expo run:ios` or `npx expo run:android`. For quick testing without native code, use Expo Go with `yarn start`.
 
 ## 🔑 Demo Credentials
 
@@ -135,19 +149,28 @@ No additional environment variables are required for basic functionality.
 
 ## 🚀 Deployment
 
+### Development Builds
+```bash
+# Build and run on iOS simulator
+npx expo run:ios
+
+# Build and run on Android emulator
+npx expo run:android
+```
+
 ### Building for Production
 ```bash
 # Build for iOS
-yarn ios
+npx expo build:ios
 
 # Build for Android
-yarn android
+npx expo build:android
 
 # Build for web
 yarn web
 ```
 
-### Expo Build
+### Expo Build (Legacy)
 ```bash
 expo build:ios
 expo build:android

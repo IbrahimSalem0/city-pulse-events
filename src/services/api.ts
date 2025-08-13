@@ -11,9 +11,13 @@ export class ApiService {
     // Add API key to all requests
     url.searchParams.append('apikey', this.apiKey);
     
+    // Add locale parameter for better internationalization
+    const locale = params.locale || 'en-us';
+    url.searchParams.append('locale', locale);
+    
     // Add other parameters
     Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '') {
+      if (value !== undefined && value !== null && value !== '' && key !== 'locale') {
         url.searchParams.append(key, value.toString());
       }
     });
@@ -33,9 +37,10 @@ export class ApiService {
     }
   }
 
-  static async searchEvents(params: SearchParams): Promise<ApiResponse<Event>> {
+  static async searchEvents(params: SearchParams, locale: string = 'en-us'): Promise<ApiResponse<Event>> {
     const searchParams: Record<string, any> = {
       size: 20, // Number of results per page
+      locale: locale, // Add locale for better internationalization
     };
 
     if (params.keyword) {
@@ -94,11 +99,9 @@ export class ApiService {
     }
   }
 
-  static async getEventDetails(eventId: string): Promise<Event> {
+  static async getEventDetails(eventId: string, locale: string = 'en-us'): Promise<Event> {
     try {
-      const response = await this.makeRequest<any>(`/events/${eventId}.json`);
-      
-      console.log('Ticketmaster API Response:', JSON.stringify(response, null, 2));
+      const response = await this.makeRequest<any>(`/events/${eventId}.json`, { locale });
       
       // Handle different response structures from Ticketmaster
       let event;
@@ -111,12 +114,8 @@ export class ApiService {
         throw new Error('Event not found');
       }
       
-      console.log('Extracted Event:', JSON.stringify(event, null, 2));
-      
       // Extract venue data properly based on Ticketmaster API structure
       const venue = event._embedded?.venues?.[0] || event.venue || {};
-      
-      console.log('Extracted Venue:', JSON.stringify(venue, null, 2));
       
       return {
         id: event.id,
@@ -146,9 +145,9 @@ export class ApiService {
     }
   }
 
-  static async getCategories(): Promise<string[]> {
+  static async getCategories(locale: string = 'en-us'): Promise<string[]> {
     try {
-      const response = await this.makeRequest<{_embedded: {classifications: any[]}}>('/classifications.json');
+      const response = await this.makeRequest<{_embedded: {classifications: any[]}}>('/classifications.json', { locale });
       
       const categories = (response._embedded?.classifications || [])
         .map((classification: any) => classification.segment?.name)

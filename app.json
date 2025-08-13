@@ -14,7 +14,13 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.city-pulse-events"
+      "bundleIdentifier": "com.city-pulse-events",
+      "icon": "./assets/icon.png",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#007AFF"
+      }
     },
     "android": {
       "adaptiveIcon": {

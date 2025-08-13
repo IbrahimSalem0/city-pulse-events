@@ -55,17 +55,22 @@ export default function SignUpScreen() {
 
   return (
     <SafeArea>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
+      <KeyboardAvoidingView style={styles.container}>
         <View style={styles.content}>
+          {/* App Icon */}
+          <View style={styles.iconContainer}>
+            <Text style={styles.appIcon}>🏙️</Text>
+            <Text style={styles.appName}>City Pulse</Text>
+            <Text style={styles.appTagline}>Events</Text>
+          </View>
+
           <Text style={styles.title}>{t('auth.createAccount')}</Text>
           <Text style={styles.subtitle}>{t('auth.signupToStart')}</Text>
 
           <View style={styles.form}>
             <Input
-              placeholder={t('auth.fullName')}
+              label={t('auth.fullName')}
+              placeholder={t('auth.fullNamePlaceholder')}
               value={name}
               onChangeText={setName}
               autoCapitalize="words"
@@ -73,7 +78,8 @@ export default function SignUpScreen() {
             />
 
             <Input
-              placeholder={t('auth.email')}
+              label={t('auth.email')}
+              placeholder={t('auth.emailPlaceholder')}
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -82,18 +88,20 @@ export default function SignUpScreen() {
             />
 
             <Input
-              placeholder={t('auth.password')}
+              label={t('auth.password')}
+              placeholder={t('auth.passwordPlaceholder')}
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
+              showPasswordToggle={true}
               autoCapitalize="none"
             />
 
             <Input
-              placeholder={t('auth.confirmPassword')}
+              label={t('auth.confirmPassword')}
+              placeholder={t('auth.confirmPasswordPlaceholder')}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              secureTextEntry
+              showPasswordToggle={true}
               autoCapitalize="none"
             />
 
