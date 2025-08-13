@@ -8,29 +8,34 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useApp } from '../../store/AppContext';
-import { useEvents } from '../../hooks/useEvents';
+import { useEventsByIds } from '../../hooks/useEvents';
 import { EventCard, StatusBarSpacer } from '../../components';
 import { COLORS } from '../../constants';
 import { styles } from './FavoritesScreen.styles';
 import { RootStackParamList } from '../../navigation/types';
+import { useTranslation } from 'react-i18next';
 
 type FavoritesScreenNavigationProp = StackNavigationProp<RootStackParamList, 'EventDetails'>;
 
 export default function FavoritesScreen() {
   const navigation = useNavigation<FavoritesScreenNavigationProp>();
   const { favoriteEvents, language } = useApp();
+  const { t } = useTranslation();
 
-  // Fetch all events to get details for favorites
-  const { data: allEvents } = useEvents({});
-
-  // Filter events to show only favorites
+  // Fetch favorite events by their IDs
+  const favoriteEventsQueries = useEventsByIds(favoriteEvents);
+  
+  // Extract event data and loading/error states
   const favoriteEventDetails = useMemo(() => {
-    if (!allEvents?.data || !favoriteEvents.length) return [];
+    const events = favoriteEventsQueries
+      .map(query => query.data)
+      .filter(Boolean) as any[];
     
-    return allEvents.data.filter(event => 
-      favoriteEvents.includes(event.id)
-    );
-  }, [allEvents, favoriteEvents]);
+    return events;
+  }, [favoriteEventsQueries]);
+
+  const isLoading = favoriteEventsQueries.some(query => query.isLoading);
+  const hasError = favoriteEventsQueries.some(query => query.error);
 
   const handleBackPress = useCallback(() => {
     navigation.goBack();
@@ -53,19 +58,64 @@ export default function FavoritesScreen() {
             <Text style={styles.backButtonText}>⬅️</Text>
           </TouchableOpacity>
           <Text style={styles.headerTitle}>
-            {language === 'en' ? 'Favorites' : 'المفضلة'}
+            {t('Favorites')}
           </Text>
         </View>
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyIcon}>🤍</Text>
           <Text style={styles.emptyTitle}>
-            {language === 'en' ? 'No Favorite Events' : 'لا توجد أحداث مفضلة'}
+            {t('NoFavoriteEvents')}
           </Text>
           <Text style={styles.emptySubtitle}>
-            {language === 'en' 
-              ? 'Start exploring events and add them to your favorites!' 
-              : 'ابدأ في استكشاف الأحداث وأضفها إلى المفضلة!'
-            }
+            {t('StartExploring')}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  // Show loading state while fetching events
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <StatusBarSpacer backgroundColor={COLORS.background} />
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+            <Text style={styles.backButtonText}>⬅️</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>
+            {t('Favorites')}
+          </Text>
+        </View>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>
+            {t('LoadingFavorites')}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  // Show error state if something went wrong
+  if (hasError) {
+    return (
+      <View style={styles.container}>
+        <StatusBarSpacer backgroundColor={COLORS.background} />
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+            <Text style={styles.backButtonText}>⬅️</Text>
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>
+            {t('Favorites')}
+          </Text>
+        </View>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorIcon}>⚠️</Text>
+          <Text style={styles.errorTitle}>
+            {t('ErrorLoadingEvents')}
+          </Text>
+          <Text style={styles.errorSubtitle}>
+            {t('PleaseTryAgainLater')}
           </Text>
         </View>
       </View>
@@ -89,7 +139,7 @@ export default function FavoritesScreen() {
           <Text style={styles.backButtonText}>⬅️</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>
-          {language === 'en' ? 'Favorites' : 'المفضلة'}
+          {t('Favorites')}
         </Text>
       </View>
       
@@ -102,10 +152,10 @@ export default function FavoritesScreen() {
         ListHeaderComponent={
           <View style={styles.headerInfo}>
             <Text style={styles.title}>
-              {language === 'en' ? 'Favorite Events' : 'الأحداث المفضلة'}
+              {t('FavoriteEvents')}
             </Text>
             <Text style={styles.subtitle}>
-              {favoriteEventDetails.length} {language === 'en' ? 'events' : 'أحداث'}
+              {favoriteEventDetails.length} {t('events')}
             </Text>
           </View>
         }

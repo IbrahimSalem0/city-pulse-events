@@ -1,12 +1,15 @@
 export default {
   common: {
-    loading: 'جاري التحميل...',
     error: 'خطأ',
+    loading: 'جاري التحميل...',
     retry: 'إعادة المحاولة',
     cancel: 'إلغاء',
+    confirm: 'تأكيد',
     save: 'حفظ',
     delete: 'حذف',
     edit: 'تعديل',
+    add: 'إضافة',
+    remove: 'إزالة',
     view: 'عرض',
     back: 'رجوع',
     next: 'التالي',
@@ -20,6 +23,14 @@ export default {
     info: 'معلومات',
     demo: 'بيانات التجربة',
     success: 'نجح',
+    // Additional keys for FavoritesScreen
+    Favorites: 'المفضلة',
+    NoFavoriteEvents: 'لا توجد أحداث مفضلة',
+    StartExploring: 'ابدأ في استكشاف الأحداث وأضفها إلى المفضلة!',
+    LoadingFavorites: 'جاري تحميل المفضلة...',
+    ErrorLoadingEvents: 'خطأ في تحميل الأحداث',
+    PleaseTryAgainLater: 'يرجى المحاولة مرة أخرى لاحقاً',
+    FavoriteEvents: 'الأحداث المفضلة',
   },
   auth: {
     login: 'تسجيل الدخول',
@@ -95,6 +106,14 @@ export default {
     appInformation: 'معلومات التطبيق',
     editProfileInfo: 'تعديل الملف الشخصي سيتم تنفيذه هنا',
     notificationsInfo: 'إعدادات الإشعارات ستتم تنفيذها هنا',
+    // Favorites screen specific
+    favoritesTitle: 'المفضلة',
+    favoriteEventsTitle: 'الأحداث المفضلة',
+    noFavoriteEvents: 'لا توجد أحداث مفضلة',
+    noFavoriteEventsSubtitle: 'ابدأ في استكشاف الأحداث وأضفها إلى المفضلة!',
+    loadingFavorites: 'جاري تحميل المفضلة...',
+    errorLoadingEvents: 'خطأ في تحميل الأحداث',
+    errorLoadingEventsSubtitle: 'يرجى المحاولة مرة أخرى لاحقاً',
   },
   navigation: {
     home: 'الرئيسية',

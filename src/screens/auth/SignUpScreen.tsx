@@ -10,6 +10,9 @@ import { useTranslation } from 'react-i18next';
 import { useApp } from '../../store/AppContext';
 import { Button, Input, SafeArea } from '../../components';
 import { styles } from './SignUpScreen.styles';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../navigation/types';
 
 export default function SignUpScreen() {
   const { t } = useTranslation();
@@ -18,7 +21,7 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const { updateUser } = useApp();
-
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const handleSignUp = () => {
     if (!name || !email || !password || !confirmPassword) {
       Alert.alert(t('common.error'), t('auth.emailRequired'));
@@ -49,8 +52,7 @@ export default function SignUpScreen() {
   };
 
   const handleBackToLogin = () => {
-    // Navigate back to login screen
-    Alert.alert(t('common.info'), t('auth.backToLogin'));
+    navigation.navigate("Login");
   };
 
   return (

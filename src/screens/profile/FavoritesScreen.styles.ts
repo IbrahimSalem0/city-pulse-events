@@ -66,4 +66,38 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: SPACING.xl,
+  },
+  loadingText: {
+    fontSize: FONT_SIZES.lg,
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: SPACING.xl,
+  },
+  errorIcon: {
+    fontSize: 64,
+    marginBottom: SPACING.lg,
+  },
+  errorTitle: {
+    fontSize: FONT_SIZES.xl,
+    fontWeight: '600',
+    color: COLORS.error,
+    marginBottom: SPACING.sm,
+    textAlign: 'center',
+  },
+  errorSubtitle: {
+    fontSize: FONT_SIZES.md,
+    color: COLORS.textSecondary,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
 });

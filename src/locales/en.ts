@@ -1,12 +1,15 @@
 export default {
   common: {
-    loading: 'Loading...',
     error: 'Error',
+    loading: 'Loading...',
     retry: 'Retry',
     cancel: 'Cancel',
+    confirm: 'Confirm',
     save: 'Save',
     delete: 'Delete',
     edit: 'Edit',
+    add: 'Add',
+    remove: 'Remove',
     view: 'View',
     back: 'Back',
     next: 'Next',
@@ -20,6 +23,14 @@ export default {
     info: 'Info',
     demo: 'Demo Credentials',
     success: 'Success',
+    // Additional keys for FavoritesScreen
+    Favorites: 'Favorites',
+    NoFavoriteEvents: 'No Favorite Events',
+    StartExploring: 'Start exploring events and add them to your favorites!',
+    LoadingFavorites: 'Loading favorites...',
+    ErrorLoadingEvents: 'Error Loading Events',
+    PleaseTryAgainLater: 'Please try again later',
+    FavoriteEvents: 'Favorite Events',
   },
   auth: {
     login: 'Login',
@@ -95,6 +106,14 @@ export default {
     appInformation: 'App Information',
     editProfileInfo: 'Profile editing would be implemented here',
     notificationsInfo: 'Notifications settings would be implemented here',
+    // Favorites screen specific
+    favoritesTitle: 'Favorites',
+    favoriteEventsTitle: 'Favorite Events',
+    noFavoriteEvents: 'No Favorite Events',
+    noFavoriteEventsSubtitle: 'Start exploring events and add them to your favorites!',
+    loadingFavorites: 'Loading favorites...',
+    errorLoadingEvents: 'Error Loading Events',
+    errorLoadingEventsSubtitle: 'Please try again later',
   },
   navigation: {
     home: 'Home',

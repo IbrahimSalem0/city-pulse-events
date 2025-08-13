@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, useQueries } from '@tanstack/react-query';
 import { ApiService } from '../services/api';
 import { SearchParams, Event } from '../types';
 
@@ -28,6 +28,27 @@ export function useCategories() {
     queryFn: () => ApiService.getCategories(),
     staleTime: 60 * 60 * 1000, // 1 hour
     gcTime: 24 * 60 * 60 * 1000, // 24 hours
+  });
+}
+
+export function useEventsByIds(eventIds: string[]) {
+  return useQueries({
+    queries: eventIds.map(id => ({
+      queryKey: ['event', id],
+      queryFn: () => ApiService.getEventDetails(id),
+      staleTime: 10 * 60 * 1000, // 10 minutes
+      gcTime: 30 * 60 * 1000, // 30 minutes
+      enabled: !!id,
+    })),
+  });
+}
+
+export function useAllEvents() {
+  return useQuery({
+    queryKey: ['allEvents'],
+    queryFn: () => ApiService.searchEvents({ keyword: 'music', city: 'Dubai' }),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 }
 

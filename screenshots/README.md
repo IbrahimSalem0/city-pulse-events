@@ -5,6 +5,7 @@ This folder contains screenshots of the City Pulse Events mobile application.
 ## 📱 Screenshot Guidelines
 
 ### Required Screenshots
+0. **splash-screen.png** - Splash screen with app branding
 1. **login-screen.png** - Login screen with app branding
 2. **signup-screen.png** - Sign up screen with form
 3. **home-screen.png** - Home screen with search and categories
