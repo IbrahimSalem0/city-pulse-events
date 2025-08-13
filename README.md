@@ -29,31 +29,6 @@ A React Native mobile application for discovering and exploring local events usi
 - **API**: Ticketmaster Discovery API
 - **Styling**: React Native StyleSheet
 
-## 📱 Screenshots
-
-### App Screenshots
-
-#### Authentication Flow
-![Login Screen](screenshots/login-screen.png)
-*Login screen with app branding and password toggle*
-
-![Sign Up Screen](screenshots/signup-screen.png)
-*Sign up screen with form validation*
-
-#### Main App Features
-![Home Screen](screenshots/home-screen.png)
-*Home screen with event search and categories*
-
-![Event Details](screenshots/event-details.png)
-*Event details with venue information and map preview*
-
-![Profile Screen](screenshots/profile-screen.png)
-*User profile with language toggle and favorites*
-
-![Favorites Screen](screenshots/favorites-screen.png)
-*Favorites screen showing saved events*
-
-
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -104,6 +79,37 @@ A React Native mobile application for discovering and exploring local events usi
 For testing the app, use these demo credentials:
 - **Email**: `demo@example.com`
 - **Password**: `password`
+
+ ### API Keys
+The app uses the Ticketmaster Discovery API. API keys are already configured in the constants file.
+
+
+## 📱 Screenshots
+
+### App Screenshots
+
+#### Authentication Flow
+![Login Screen](screenshots/login-screen.png)
+*Login screen with app branding and password toggle*
+
+![Sign Up Screen](screenshots/signup-screen.png)
+*Sign up screen with form validation*
+
+#### Main App Features
+![Home Screen](screenshots/home-screen.png)
+*Home screen with event search and categories*
+
+![Event Details](screenshots/event-details.png)
+*Event details with venue information and map preview*
+
+![Profile Screen](screenshots/profile-screen.png)
+*User profile with language toggle and favorites*
+
+![Favorites Screen](screenshots/favorites-screen.png)
+*Favorites screen showing saved events*
+
+
+
 
 ## 🏗️ Project Structure
 
