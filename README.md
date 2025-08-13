@@ -14,7 +14,6 @@ A React Native mobile application for discovering and exploring local events usi
 - **Local Storage**: Persistent data storage using AsyncStorage
 
 ### Bonus Features 🌟
-- **Map Preview**: Location coordinates display in event details
 - **Mock Authentication**: Login/Signup system with demo credentials
 - **Modern UI**: Clean, responsive design with proper loading states
 - **Error Handling**: Comprehensive error boundaries and user feedback
@@ -203,34 +202,11 @@ npx expo build:android
 yarn web
 ```
 
-### Expo Build (Legacy)
-```bash
-expo build:ios
-expo build:android
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - Ticketmaster for providing the Discovery API
-- Expo team for the excellent development platform
-- React Native community for continuous support
 
-## 📞 Support
 
-For support or questions, please open an issue in the GitHub repository or contact the development team.
 
----
 
-**Note**: This is an interview task project demonstrating senior mobile development skills including clean architecture, state management, API integration, and user experience design.
+
