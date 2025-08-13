@@ -32,7 +32,6 @@ A React Native mobile application for discovering and exploring local events usi
 ## 📱 Screenshots
 
 ### App Screenshots
-*Add your screenshots here by placing them in the `screenshots/` folder and updating the paths below:*
 
 #### Authentication Flow
 ![Login Screen](screenshots/login-screen.png)
@@ -54,17 +53,6 @@ A React Native mobile application for discovering and exploring local events usi
 ![Favorites Screen](screenshots/favorites-screen.png)
 *Favorites screen showing saved events*
 
-### How to Add Screenshots
-1. **Take screenshots** of your app running on simulator/device
-2. **Save them** in the `screenshots/` folder
-3. **Update the paths** in this README to match your screenshot filenames
-4. **Commit and push** the screenshots with your code
-
-**Recommended screenshot sizes:**
-- iOS Simulator: 390x844 (iPhone 14)
-- Android Emulator: 360x800 (Pixel 4)
-- Format: PNG or JPG
-- Quality: High resolution for professional appearance
 
 ## 🚀 Getting Started
 
